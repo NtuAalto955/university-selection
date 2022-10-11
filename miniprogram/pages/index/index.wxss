@@ -1,0 +1,59 @@
+/**index.wxss**/
+.pannel-item {
+    display: flex;
+    align-items: center;
+    height: 96rpx;
+    padding: 0 32rpx;
+    font-size: 32rpx;
+    margin-bottom: 32rpx;
+    background-color: #fff;
+}
+  
+.pannel-item .last {
+    margin-bottom: -13rpx;
+}
+.pannel-label {
+    width: 220rpx;
+    margin-right: 30rpx;
+}
+
+.pannel-text {
+    flex: 1;
+    color: #000;
+    opacity: 0.9;
+}
+.pannel-text.empty {
+    opacity: 0.45;
+}
+
+.input-item {
+    height: 96rpx;
+    padding: 0 32rpx;
+    font-size: 32rpx;
+    margin-bottom: 32rpx;
+    background-color: #fff;
+}
+
+.checkbox-item {
+    height: 96rpx;
+    padding: 0 32rpx;
+    font-size: 32rpx;
+    margin-bottom: 32rpx;
+    background-color: #fff;
+}
+
+.external-class {
+    margin-top: 32rpx;
+}
+
+.button-item {
+    margin-top: 720rpx;
+    width: 60%;
+    color: white;
+    background-color: blue;
+    border-radius: 10rpx;
+}
+
+.button-item::after {
+    border-radius: 10rpx;
+}

@@ -1,0 +1,14 @@
+{
+    "navigationBarTitleText": "选校定位小工具",
+    "component": true,
+    "usingComponents": {
+        "t-picker": "tdesign-miniprogram/picker/picker",
+        "t-picker-item": "tdesign-miniprogram/picker/picker-item",
+        "t-input": "tdesign-miniprogram/input/input",
+        "t-checkbox": "tdesign-miniprogram/checkbox/checkbox",
+        "t-checkbox-group": "tdesign-miniprogram/checkbox-group/checkbox-group",
+        "t-button": "tdesign-miniprogram/button/button",
+        "t-button-group": "tdesign-miniprogram/button-group/button-group",
+        "t-message": "tdesign-miniprogram/message/message"
+    }
+}

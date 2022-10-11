@@ -1,0 +1,41 @@
+<!--index.wxml-->
+<t-message id="t-message" />
+<block>
+    <form bind:submit="onFormSubmit">
+        <view class="pannel-item" bind:tap="onClickPicker" data-key="{{PICKER_KEY.SCHOOL}}">
+            <view class="pannel-label">本科学校档次:<text style="color: #e34d59"> *</text></view>
+            <view class="pannel-text {{schoolValue.length ? '' : 'empty'}}">{{schoolCurrentValue || '选择学校档次'}}</view>
+            <t-icon name="chevron-right" color="rgba(0, 0, 0, 0.26)" size="24px" />
+        </view>
+        <view class="input-item">
+            <t-input placeholder="请输入百分制成绩" type="number" label="slot" bind:change="onInput" value="{{gpaValue}}">
+                <text slot="label">本科成绩:<text style="color: #e34d59"> *</text> </text>
+            </t-input>
+        </view>
+        <view class="checkbox-item">
+            <view class="pannel-label">留学目的地:<text style="color: #e34d59"> *</text></view>
+            <t-checkbox-group        
+                options="{{destinations}}"
+                defaultValue="{{checkAllValues}}"
+                bind:change="onCheckAllChange"
+            ></t-checkbox-group>
+        </view>
+        <view>
+            <button class="button-item" formType="submit">查询</button>
+        </view>
+    </form>
+</block>
+
+<t-picker
+  visible="{{schoolVisible}}"
+  value="{{schoolValue}}"
+  data-key="school"
+  title="{{pickerTitle}}"
+  cancelBtn="取消"
+  confirmBtn="确认"
+  bindchange="onPickerChange"
+  bindpick="onColumnChange"
+  bindcancel="onPickerCancel"
+>
+  <t-picker-item options="{{schools}}"></t-picker-item>
+</t-picker>
