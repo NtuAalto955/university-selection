@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "选校定位结果",
+  "component": true,
+  "usingComponents": {
+    "t-collapse": "tdesign-miniprogram/collapse/collapse",
+    "t-collapse-panel": "tdesign-miniprogram/collapse/collapse-panel",
+    "t-dropdown-menu": "tdesign-miniprogram/dropdown-menu/dropdown-menu",
+    "t-dropdown-item": "tdesign-miniprogram/dropdown-menu/dropdown-item"
+  }
+}

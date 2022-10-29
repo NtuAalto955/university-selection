@@ -1,0 +1,31 @@
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.collapse {
+  width: 100%;
+  height: 100%;
+}
+
+.dropdown-item {
+    margin-bottom: 30rpx
+}
+
+.school-list {
+  display: flex;
+  flex-direction: column;
+  padding: 40rpx;
+}
+.school-item {
+  margin: 10rpx;
+}
+.single-school {
+    font-size: 28rpx;
+    padding: 3rpx 8rpx 3rpx 8rpx;
+    width: fit-content;
+    border-radius: 5rpx;
+    background-color: lightblue;
+}

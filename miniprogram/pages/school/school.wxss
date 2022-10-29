@@ -1,0 +1,61 @@
+.school-title {
+  font-size: 36rpx;
+  margin: 16rpx 16rpx 16rpx 16rpx;
+  padding: 12rpx;
+  font-weight: bold;
+  width:fit-content;
+  border-radius: 5rpx;
+  background-color: lightblue;
+}
+
+.result-banner {
+  display: flex;
+  margin: 0 16rpx;
+  justify-content: space-between;
+  border-bottom: 0.01rem solid lightgray;
+}
+
+.result-title {
+  font-size: 30rpx;
+  margin: 12rpx 0;
+  color: gray;
+  font-weight: bold;
+}
+
+.result-type {
+  font-size: 24rpx;
+  color: gray;
+}
+
+.accepted {
+  font-size: 32rpx;
+  color: green;
+  font-weight: bold;
+}
+
+.rejected {
+  font-size: 33rpx;
+  color: red;
+  font-weight: bold;
+}
+
+.avg-data {
+  font-weight: bold;
+}
+
+.ec-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 30vh;
+  margin-top: 48rpx;
+}
+
+ec-canvas {
+  margin-top: 16rpx;
+  width: 98%;
+  height: 98%;
+  flex-shrink: 0;
+}

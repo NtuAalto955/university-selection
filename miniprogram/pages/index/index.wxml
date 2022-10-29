@@ -1,16 +1,30 @@
 <!--index.wxml-->
 <t-message id="t-message" />
+<t-popup visible="{{visible}}" bind:visible-change="onVisibleChange" placement="center">
+  <view class="loading-container">
+    <t-loading theme="spinner" size="150rpx" text="结果查询中" layout="vertical" loading="{{visible}}"></t-loading>
+  </view>
+</t-popup>
 <block>
-    <form bind:submit="onFormSubmit">
+    <form bind:submit="onFormSubmit" class="form-item">
         <view class="pannel-item" bind:tap="onClickPicker" data-key="{{PICKER_KEY.SCHOOL}}">
             <view class="pannel-label">本科学校档次:<text style="color: #e34d59"> *</text></view>
             <view class="pannel-text {{schoolValue.length ? '' : 'empty'}}">{{schoolCurrentValue || '选择学校档次'}}</view>
             <t-icon name="chevron-right" color="rgba(0, 0, 0, 0.26)" size="24px" />
         </view>
+        <view class="pannel-item" bind:tap="onClickPicker" data-key="{{PICKER_KEY.SUBJECT}}">
+            <view class="pannel-label">本科专业类别:<text style="color: #e34d59"> *</text></view>
+            <view class="pannel-text {{subjectValue.length ? '' : 'empty'}}">{{subjectCurrentValue || '选择专业类别'}}</view>
+            <t-icon name="chevron-right" color="rgba(0, 0, 0, 0.26)" size="24px" />
+        </view>
         <view class="input-item">
-            <t-input placeholder="请输入百分制成绩" type="number" label="slot" bind:change="onInput" value="{{gpaValue}}">
+            <t-input placeholder="百分制或GPA" placeholder-style="font-size: 30rpx"type="number" label="slot" bind:change="onInput" value="{{gradeValue}}">
                 <text slot="label">本科成绩:<text style="color: #e34d59"> *</text> </text>
             </t-input>
+        </view>
+        <view class="note-item">
+            <t-icon name="error-circle-filled" size="32rpx" data-name="error-circle-filled" />
+            <text slot="label" class="text-item">成绩填写规范: 百分制(如86.3)或GPA(如3.53/4，建议换算成4分制)；如两个都写则请如下填写86.3+3.53/4</text>
         </view>
         <view class="checkbox-item">
             <view class="pannel-label">留学目的地:<text style="color: #e34d59"> *</text></view>
@@ -21,11 +35,12 @@
             ></t-checkbox-group>
         </view>
         <view>
-            <button class="button-item" formType="submit">查询</button>
+            <button class="submit-item" formType="submit">查询</button>
         </view>
-    </form>
+    </form>    
 </block>
 
+<!-- 学校档次 -->
 <t-picker
   visible="{{schoolVisible}}"
   value="{{schoolValue}}"
@@ -38,4 +53,19 @@
   bindcancel="onPickerCancel"
 >
   <t-picker-item options="{{schools}}"></t-picker-item>
+</t-picker>
+
+<!-- 专业类别 -->
+<t-picker
+  visible="{{subjectVisible}}"
+  value="{{subjectValue}}"
+  data-key="subject"
+  title="{{pickerTitle}}"
+  cancelBtn="取消"
+  confirmBtn="确认"
+  bindchange="onPickerChange"
+  bindpick="onColumnChange"
+  bindcancel="onPickerCancel"
+>
+  <t-picker-item options="{{subjects}}"></t-picker-item>
 </t-picker>

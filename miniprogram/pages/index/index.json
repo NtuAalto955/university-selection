@@ -9,6 +9,9 @@
         "t-checkbox-group": "tdesign-miniprogram/checkbox-group/checkbox-group",
         "t-button": "tdesign-miniprogram/button/button",
         "t-button-group": "tdesign-miniprogram/button-group/button-group",
-        "t-message": "tdesign-miniprogram/message/message"
+        "t-message": "tdesign-miniprogram/message/message",
+        "t-icon": "tdesign-miniprogram/icon/icon",
+        "t-popup": "tdesign-miniprogram/popup/popup",
+        "t-loading": "tdesign-miniprogram/loading/loading"
     }
 }

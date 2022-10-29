@@ -1,0 +1,30 @@
+<!--logs.wxml-->
+<view>
+  <view class="school-title">
+    <text>{{school['school_name']}}</text>
+  </view>
+  <view class="result-banner">
+    <text class="result-title">申请情况</text>
+    <view class="result-data">
+      <text class="accepted">{{school["total_result"]["accepted_num"]}}</text><text class="result-type"> 录取 </text>
+      <text class="rejected">{{school["total_result"]["rejected_num"]}}</text><text class="result-type"> 被拒 </text>
+    </view>
+  </view>
+  <view class="ec-container">
+    <view class="avg-data">
+      <text>GPA平均值: </text>
+      <text style="color: green; font-size: 36rpx;">{{school["avg_grade"]["gpa_score"]}}</text>
+    </view>
+    <ec-canvas id="gpa-bar" canvas-id="gpa-bar" ec="{{ gpaEC }}"></ec-canvas>
+  </view>
+  <view class="ec-container">
+    <view class="avg-data">
+      <text>百分制成绩平均值: </text>
+      <text style="color: green; font-size: 36rpx;">{{school["avg_grade"]["percentage_score"]}}</text>
+    </view>
+    <ec-canvas id="percentage-bar" canvas-id="percentage-bar" ec="{{ percentageEC }}"></ec-canvas>
+  </view>
+  <view class="ec-container">
+    <ec-canvas id="school-bar" canvas-id="school-bar" ec="{{ schoolEC }}"></ec-canvas>
+  </view>
+</view>

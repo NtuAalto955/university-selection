@@ -1,4 +1,11 @@
 /**index.wxss**/
+.form-item {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+	justify-content: center;
+}
+
 .pannel-item {
     display: flex;
     align-items: center;
@@ -13,10 +20,9 @@
     margin-bottom: -13rpx;
 }
 .pannel-label {
-    width: 220rpx;
-    margin-right: 30rpx;
+    width: 230rpx;
+    margin-right: 32rpx;
 }
-
 .pannel-text {
     flex: 1;
     color: #000;
@@ -38,6 +44,7 @@
     height: 96rpx;
     padding: 0 32rpx;
     font-size: 32rpx;
+    margin-top: 32rpx;
     margin-bottom: 32rpx;
     background-color: #fff;
 }
@@ -46,14 +53,25 @@
     margin-top: 32rpx;
 }
 
-.button-item {
-    margin-top: 720rpx;
+.submit-item {
+    margin-top: 85%;
     width: 60%;
     color: white;
     background-color: blue;
     border-radius: 10rpx;
+    font-size: 32rpx;
+}
+.submit-item::after {
+    border-radius: 10rpx;
 }
 
-.button-item::after {
-    border-radius: 10rpx;
+.note-item {
+    padding: 0 48rpx;
+    display: flex;
+    flex-direction: row;
+}
+
+.text-item {
+    font-size: 24rpx;
+    color: gray;
 }
