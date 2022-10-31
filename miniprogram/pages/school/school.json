@@ -2,6 +2,8 @@
   "navigationBarTitleText": "学校录取情况详情",
   "component": true,
   "usingComponents": {
-    "ec-canvas": "../../ec-canvas/ec-canvas"
+    "ec-canvas": "../../ec-canvas/ec-canvas",
+    "t-dropdown-menu": "tdesign-miniprogram/dropdown-menu/dropdown-menu",
+    "t-dropdown-item": "tdesign-miniprogram/dropdown-menu/dropdown-item"
   }
 }

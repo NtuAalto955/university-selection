@@ -1,9 +1,9 @@
 <!--index.wxml-->
 <t-message id="t-message" />
 <t-popup visible="{{visible}}" bind:visible-change="onVisibleChange" placement="center">
-  <view class="loading-container">
-    <t-loading theme="spinner" size="150rpx" text="结果查询中" layout="vertical" loading="{{visible}}"></t-loading>
-  </view>
+    <view class="loading-container">
+        <t-loading theme="spinner" size="150rpx" text="结果查询中" layout="vertical" loading="{{visible}}"></t-loading>
+    </view>
 </t-popup>
 <block>
     <form bind:submit="onFormSubmit" class="form-item">
@@ -12,13 +12,13 @@
             <view class="pannel-text {{schoolValue.length ? '' : 'empty'}}">{{schoolCurrentValue || '选择学校档次'}}</view>
             <t-icon name="chevron-right" color="rgba(0, 0, 0, 0.26)" size="24px" />
         </view>
-        <view class="pannel-item" bind:tap="onClickPicker" data-key="{{PICKER_KEY.SUBJECT}}">
+        <view class="pannel-item" bind:tap="onClickPicker" data-key="{{PICKER_KEY.MAJOR}}">
             <view class="pannel-label">本科专业类别:<text style="color: #e34d59"> *</text></view>
-            <view class="pannel-text {{subjectValue.length ? '' : 'empty'}}">{{subjectCurrentValue || '选择专业类别'}}</view>
+            <view class="pannel-text {{majorValue.length ? '' : 'empty'}}">{{majorCurrentValue || '选择专业类别'}}</view>
             <t-icon name="chevron-right" color="rgba(0, 0, 0, 0.26)" size="24px" />
         </view>
         <view class="input-item">
-            <t-input placeholder="百分制或GPA" placeholder-style="font-size: 30rpx"type="number" label="slot" bind:change="onInput" value="{{gradeValue}}">
+            <t-input placeholder="百分制或GPA" placeholder-style="font-size: 30rpx" type="number" label="slot" bind:change="onInput" value="{{gradeValue}}">
                 <text slot="label">本科成绩:<text style="color: #e34d59"> *</text> </text>
             </t-input>
         </view>
@@ -28,44 +28,20 @@
         </view>
         <view class="checkbox-item">
             <view class="pannel-label">留学目的地:<text style="color: #e34d59"> *</text></view>
-            <t-checkbox-group        
-                options="{{destinations}}"
-                defaultValue="{{checkAllValues}}"
-                bind:change="onCheckAllChange"
-            ></t-checkbox-group>
+            <t-checkbox-group options="{{destinations}}" defaultValue="{{checkAllValues}}" bind:change="onCheckAllChange"></t-checkbox-group>
         </view>
         <view>
             <button class="submit-item" formType="submit">查询</button>
         </view>
-    </form>    
+    </form>
 </block>
 
 <!-- 学校档次 -->
-<t-picker
-  visible="{{schoolVisible}}"
-  value="{{schoolValue}}"
-  data-key="school"
-  title="{{pickerTitle}}"
-  cancelBtn="取消"
-  confirmBtn="确认"
-  bindchange="onPickerChange"
-  bindpick="onColumnChange"
-  bindcancel="onPickerCancel"
->
-  <t-picker-item options="{{schools}}"></t-picker-item>
+<t-picker visible="{{schoolVisible}}" value="{{schoolValue}}" data-key="school" title="{{pickerTitle}}" cancelBtn="取消" confirmBtn="确认" bindchange="onPickerChange" bindpick="onColumnChange" bindcancel="onPickerCancel">
+    <t-picker-item options="{{schools}}"></t-picker-item>
 </t-picker>
 
 <!-- 专业类别 -->
-<t-picker
-  visible="{{subjectVisible}}"
-  value="{{subjectValue}}"
-  data-key="subject"
-  title="{{pickerTitle}}"
-  cancelBtn="取消"
-  confirmBtn="确认"
-  bindchange="onPickerChange"
-  bindpick="onColumnChange"
-  bindcancel="onPickerCancel"
->
-  <t-picker-item options="{{subjects}}"></t-picker-item>
+<t-picker visible="{{majorVisible}}" value="{{majorValue}}" data-key="major" title="{{pickerTitle}}" cancelBtn="取消" confirmBtn="确认" bindchange="onPickerChange" bindpick="onColumnChange" bindcancel="onPickerCancel">
+    <t-picker-item options="{{majors}}"></t-picker-item>
 </t-picker>

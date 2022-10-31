@@ -1,9 +1,14 @@
+.title-banner {
+  display: flex;
+  justify-content: space-between;
+}
+
 .school-title {
   font-size: 36rpx;
   margin: 16rpx 16rpx 16rpx 16rpx;
   padding: 12rpx;
   font-weight: bold;
-  width:fit-content;
+  width: fit-content;
   border-radius: 5rpx;
   background-color: lightblue;
 }
@@ -16,25 +21,30 @@
 }
 
 .result-title {
-  font-size: 30rpx;
+  font-size: 42rpx;
   margin: 12rpx 0;
   color: gray;
   font-weight: bold;
 }
 
-.result-type {
+/* .dropdown-item {
+  display: inline-block;
   font-size: 24rpx;
+} */
+
+.result-type {
+  font-size: 28rpx;
   color: gray;
 }
 
 .accepted {
-  font-size: 32rpx;
+  font-size: 36rpx;
   color: green;
   font-weight: bold;
 }
 
 .rejected {
-  font-size: 33rpx;
+  font-size: 37rpx;
   color: red;
   font-weight: bold;
 }
