@@ -4,18 +4,20 @@ const app = getApp<IAppOption>();
 
 Page({
   data: {
+    results: [] as Array<object>,
     regions: [] as Array<string>,
     schools: {},
     REGIONS_ZH: REGIONS_ZH,
     countryOptions: {},
     selectedCountry: {},
-    filteredSchools: {},
     curRegion: "",
   },
   handlePanelChange(_e: any) {
     if (_e.detail.value[0] != undefined) {
+      const curRegion = _e.detail.value[0];
       this.setData({
-        curRegion: _e.detail.value[0],
+        curRegion: curRegion,
+        results: app["data"].apply_results[curRegion],
       });
     }
   },
@@ -31,82 +33,48 @@ Page({
       url: "../school/school?school=" + JSON.stringify(currentSchool),
     });
   },
-  dataProcessing(schools: Array<object>) {
-    const regions: Array<string> = schools.reduce((prev: Array<any>, cur) => {
-      const curRegion = cur["region"];
-      if (!prev.includes(curRegion)) {
-        prev.push(curRegion);
-      }
-      return prev;
-    }, []);
-
-    const schoolsInRegions = {};
-    regions.forEach((region) => {
-      schoolsInRegions[region] = [];
-      schools.forEach((school) => {
-        if (school["region"] == region) {
-          schoolsInRegions[region].push(school);
-        }
-      });
-    });
-
-    const countriesInRegions = {};
-    regions.forEach((region) => {
-      countriesInRegions[region] = schoolsInRegions[region]
-        .reduce((prev: Array<any>, cur: any) => {
-          const curCountry = cur["country"] == "nan" ? "其他" : cur["country"];
-          if (!prev.includes(curCountry)) {
-            prev.push(curCountry);
-          }
-          return prev;
-        }, [])
-        .map((country: string) => ({
-          label: country,
-          value: country,
-          disabled: false,
-        }));
-    });
-
+  dataProcessing(results: object, regions: Array<string>) {
+    const countriesInRegions = results["region_country_list"];
+    const schoolsInCountries = results["country_school_ist"];
     const selectedCountry = {};
-    const filteredSchools = {};
     regions.forEach((region) => {
-      selectedCountry[region] = countriesInRegions[region][0].value;
-      filteredSchools[region] = {};
-      countriesInRegions[region].forEach((country: any) => {
-        filteredSchools[region][country.value] = schoolsInRegions[
-          region
-        ].filter((school: any) => school["country"] == country.value);
-      });
+      selectedCountry[region] = countriesInRegions[region][0];
+      countriesInRegions[region] = countriesInRegions[region].map(
+        (country: string) => {
+          return {
+            label: country,
+            value: country,
+            disabled: false,
+          };
+        }
+      );
     });
     return {
-      regions,
-      schoolsInRegions,
       countriesInRegions,
+      schoolsInCountries,
       selectedCountry,
-      filteredSchools,
     };
   },
   onLoad: function (_options: any) {
-    const schools = wx.getStorageSync("data");
+    const regions = wx.getStorageSync("regions");
     const {
-      regions,
-      schoolsInRegions,
       countriesInRegions,
+      schoolsInCountries,
       selectedCountry,
-      filteredSchools,
-    } = this.dataProcessing(schools);
+    } = this.dataProcessing({ ...app["data"] }, regions);
     this.setData({
       regions: regions,
-      schools: schoolsInRegions,
+      schools: schoolsInCountries,
       countryOptions: countriesInRegions,
       selectedCountry: selectedCountry,
-      filteredSchools: filteredSchools,
     });
   },
   onUnload: function () {
     this.setData({
       regions: [],
       schools: {},
+      countryOptions: [],
+      selectedCountry: "",
     });
   },
 });

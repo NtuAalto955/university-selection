@@ -1,19 +1,19 @@
 <!--logs.wxml-->
 <view>
-    <view class="container school-list">
-        <t-collapse class="collapse" bind:change="handlePanelChange" expandMutex expandIcon>
-            <view class="school-item" wx:for="{{regions}}" wx:key="region" wx:for-item="region">
-                <t-collapse-panel header="{{REGIONS_ZH[region]}}" value="{{region}}">
-                    <view class="dropdown-item">
-                        <t-dropdown-menu>
-                            <t-dropdown-item label="按国家筛选：{{selectedCountry[region]}}" options="{{countryOptions[region] || []}}" bindchange="handleCountrySelect" value="{{selectedCountry[region] || ''}}" defaultValue="{{selectedCountry[region] || ''}}" />
-                        </t-dropdown-menu>
-                    </view>
-                    <view wx:for="{{filteredSchools[region][selectedCountry[region]]}}" wx:key="school" wx:for-item="school" style="margin: 0rpx 0rpx 6px 0rpx;">
-                        <text class="single-school" bind:tap="bindSchoolTap" data-school="{{school}}">{{school['school_name']}}</text>
-                    </view>
-                </t-collapse-panel>
-            </view>
-        </t-collapse>
-    </view>
+  <view class="container school-list">
+    <t-collapse class="collapse" bind:change="handlePanelChange" expandMutex expandIcon>
+      <view class="school-item" wx:for="{{regions}}" wx:key="region" wx:for-item="region">
+        <t-collapse-panel header="{{REGIONS_ZH[region]}}" value="{{region}}">
+          <view class="dropdown-item">
+            <t-dropdown-menu>
+              <t-dropdown-item label="按地区筛选：{{selectedCountry[region]}}" options="{{countryOptions[region] || []}}" bindchange="handleCountrySelect" value="{{selectedCountry[region] || ''}}" defaultValue="{{selectedCountry[region] || ''}}" />
+            </t-dropdown-menu>
+          </view>
+          <view wx:for="{{results[selectedCountry[region]]}}" wx:key="school" wx:for-item="school" style="margin: 0rpx 0rpx 6px 0rpx;">
+            <t-tag class="margin-right" max-width="{{320}}" theme="primary" variant="light" size="large" bind:tap="bindSchoolTap" data-school="{{school}}">{{school['school_name']}}</t-tag>
+          </view>
+        </t-collapse-panel>
+      </view>
+    </t-collapse>
+  </view>
 </view>

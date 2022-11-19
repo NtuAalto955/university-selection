@@ -4,6 +4,7 @@
   "usingComponents": {
     "ec-canvas": "../../ec-canvas/ec-canvas",
     "t-dropdown-menu": "tdesign-miniprogram/dropdown-menu/dropdown-menu",
-    "t-dropdown-item": "tdesign-miniprogram/dropdown-menu/dropdown-item"
+    "t-dropdown-item": "tdesign-miniprogram/dropdown-menu/dropdown-item",
+    "t-tag": "tdesign-miniprogram/tag/tag"
   }
 }

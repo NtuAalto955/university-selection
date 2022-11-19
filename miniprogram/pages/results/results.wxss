@@ -11,7 +11,7 @@
 }
 
 .dropdown-item {
-    margin-bottom: 30rpx
+  margin-bottom: 30rpx;
 }
 
 .school-list {
@@ -21,11 +21,4 @@
 }
 .school-item {
   margin: 10rpx;
-}
-.single-school {
-    font-size: 28rpx;
-    padding: 3rpx 8rpx 3rpx 8rpx;
-    width: fit-content;
-    border-radius: 5rpx;
-    background-color: lightblue;
 }

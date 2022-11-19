@@ -5,6 +5,7 @@
     "t-collapse": "tdesign-miniprogram/collapse/collapse",
     "t-collapse-panel": "tdesign-miniprogram/collapse/collapse-panel",
     "t-dropdown-menu": "tdesign-miniprogram/dropdown-menu/dropdown-menu",
-    "t-dropdown-item": "tdesign-miniprogram/dropdown-menu/dropdown-item"
+    "t-dropdown-item": "tdesign-miniprogram/dropdown-menu/dropdown-item",
+    "t-tag": "tdesign-miniprogram/tag/tag"
   }
 }

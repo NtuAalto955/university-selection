@@ -1,7 +1,7 @@
 <!--logs.wxml-->
 <view>
     <view class="title-banner">
-        <text class="school-title">{{schoolName}}</text>
+        <t-tag class="school-title" max-width="{{320}}" theme="primary" variant="light-outline" size="large">{{schoolName}}</t-tag>
         <t-dropdown-menu>
             <t-dropdown-item label="年份：{{selectedYear}}" options="{{yearOptions}}" bindchange="handleYearSelect" value="{{selectedYear}}" defaultValue="{{selectedYear}}" />
         </t-dropdown-menu>

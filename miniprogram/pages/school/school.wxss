@@ -4,13 +4,10 @@
 }
 
 .school-title {
-  font-size: 36rpx;
-  margin: 16rpx 16rpx 16rpx 16rpx;
-  padding: 12rpx;
+  margin: 10rpx 10rpx;
+  padding: 10rpx;
   font-weight: bold;
   width: fit-content;
-  border-radius: 5rpx;
-  background-color: lightblue;
 }
 
 .result-banner {
@@ -21,16 +18,11 @@
 }
 
 .result-title {
-  font-size: 42rpx;
-  margin: 12rpx 0;
+  font-size: 32rpx;
+  margin: 12rpx 6rpx;
   color: gray;
   font-weight: bold;
 }
-
-/* .dropdown-item {
-  display: inline-block;
-  font-size: 24rpx;
-} */
 
 .result-type {
   font-size: 28rpx;

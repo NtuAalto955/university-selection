@@ -1,11 +1,15 @@
 // logs.ts
+//@ts-ignore
 import * as echarts from "../../ec-canvas/echarts";
 
 let school: object;
 
-let chart = null;
+let gpaChart: any = null;
+let percentageChart: any = null;
+let schoolChart: any = null;
 
 const gpaLabel = [
+  "未标明GPA",
   "0-2.6",
   "2.6-2.8",
   "2.8-3.0",
@@ -17,10 +21,10 @@ const gpaLabel = [
 ];
 
 const percentageLabel = [
+  "未标明成绩",
   "0-76",
   "76-78",
   "78-80",
-  "80-82",
   "80-82",
   "82-84",
   "84-86",
@@ -55,8 +59,9 @@ const labels = {
   },
 };
 
-function getOptions(key: string) {
+function getOptions(key: string, school: object, labels: object) {
   const label = labels[key];
+  let data = school[label.dataLabel];
   const options = {
     title: {
       text: "各" + label.titleLabel + "录取情况",
@@ -102,10 +107,10 @@ function getOptions(key: string) {
           },
         },
         min: function (value: any) {
-          return value.min - 1;
+          return value.min - Math.floor(0.2 * value.max);
         },
         max: function (value: any) {
-          return value.max + 1;
+          return Math.floor(value.max * 1.2);
         },
       },
     ],
@@ -140,9 +145,7 @@ function getOptions(key: string) {
             return Math.abs(value.data);
           },
         },
-        data: school[label.dataLabel].map(
-          (item: object) => -item["rejected_num"]
-        ),
+        data: data.map((item: object) => -item["rejected_num"]),
         itemStyle: {
           borderRadius: [5, 0, 0, 5],
         },
@@ -190,9 +193,7 @@ function getOptions(key: string) {
             position: "insideLeft",
           },
         },
-        data: school[label.dataLabel].map(
-          (item: object) => item["accepted_num"]
-        ),
+        data: data.map((item: object) => item["accepted_num"]),
         itemStyle: {
           borderRadius: [0, 5, 5, 0],
         },
@@ -206,56 +207,81 @@ Page({
   data: {
     gpaEC: {
       onInit: function (canvas: any, width: any, height: any, dpr: any) {
-        chart = echarts.init(canvas, null, {
+        gpaChart = echarts.init(canvas, null, {
           width: width,
           height: height,
           devicePixelRatio: dpr, // new
         });
-        canvas.setChart(chart);
-        chart.setOption(getOptions("gpa"));
-        return chart;
+        canvas.setChart(gpaChart);
+        gpaChart.setOption(getOptions("gpa", school, labels));
+        return gpaChart;
       },
     },
     percentageEC: {
       onInit: function (canvas: any, width: any, height: any, dpr: any) {
-        chart = echarts.init(canvas, null, {
+        percentageChart = echarts.init(canvas, null, {
           width: width,
           height: height,
           devicePixelRatio: dpr, // new
         });
-        canvas.setChart(chart);
-        chart.setOption(getOptions("percentage"));
-        return chart;
+        canvas.setChart(percentageChart);
+        percentageChart.setOption(getOptions("percentage", school, labels));
+        return percentageChart;
       },
     },
     schoolEC: {
       onInit: function (canvas: any, width: any, height: any, dpr: any) {
-        chart = echarts.init(canvas, null, {
+        schoolChart = echarts.init(canvas, null, {
           width: width,
           height: height,
           devicePixelRatio: dpr, // new
         });
-        canvas.setChart(chart);
-        chart.setOption(getOptions("school"));
-        return chart;
+        canvas.setChart(schoolChart);
+        schoolChart.setOption(getOptions("school", school, labels));
+        return schoolChart;
       },
     },
     school: {},
-    schoolName: '',
+    schoolName: "",
     yearOptions: [] as Array<object>,
     selectedYear: "全部",
+    labels: labels,
   },
   calcIndex: function (type: string, value: number) {
     switch (type) {
       case "gpa":
         const gpaLowest = value - 2.6 <= 0;
-        return gpaLowest ? 0 : Math.ceil((value - 2.6) / 0.2);
+        return gpaLowest ? 0 : Math.ceil((value - 2.6) / 0.2) + 1;
       case "percentage":
         const percentageLowest = value - 76 <= 0;
         return percentageLowest ? 0 : Math.ceil((value - 76) / 2) + 1;
       default:
         return 0;
     }
+  },
+  setInitialIndex: function () {
+    const gpa = school["avg_grade"]["gpa_score"];
+    const percentage = school["avg_grade"]["percentage_score"];
+    const { percentage_score, gpa_score } = wx.getStorageSync("grade");
+    labels.gpa.yourIndex = this.calcIndex("gpa", gpa_score);
+    labels.percentage.yourIndex = this.calcIndex(
+      "percentage",
+      percentage_score
+    );
+    labels.gpa.avgIndex = this.calcIndex("gpa", gpa);
+    labels.percentage.avgIndex = this.calcIndex("percentage", percentage);
+    this.setData({
+      "labels.gpa.yourIndex": labels.gpa.yourIndex,
+      "labels.percentage.yourIndex": labels.percentage.yourIndex,
+    });
+  },
+  updateIndex: function () {
+    const gpa = this.data.school["avg_grade"]["gpa_score"];
+    const percentage = this.data.school["avg_grade"]["percentage_score"];
+    this.setData({
+      "labels.gpa.avgIndex": this.calcIndex("gpa", gpa),
+      "labels.percentage.avgIndex": this.calcIndex("percentage", percentage),
+    });
   },
   handleYearSelect(_e: any) {
     const selectedYear = _e.detail.value;
@@ -265,19 +291,16 @@ Page({
       school: schoolData,
       selectedYear: selectedYear,
     });
+    this.setOptions(gpaChart, "gpa");
+    this.setOptions(percentageChart, "percentage");
+    this.setOptions(schoolChart, "school");
+  },
+  setOptions: function (Chart: any, key: string) {
+    Chart.clear();
+    this.updateIndex();
+    Chart.setOption(getOptions(key, this.data.school, this.data.labels));
   },
   processData(school: any) {
-    const { percentage_score, gpa_score } = wx.getStorageSync("grade");
-    const gpa = school["avg_grade"]["gpa_score"];
-    const percentage = school["avg_grade"]["percentage_score"];
-    labels["gpa"].avgIndex = this.calcIndex("gpa", gpa);
-    labels["percentage"].avgIndex = this.calcIndex("percentage", percentage);
-    labels["gpa"].yourIndex = this.calcIndex("gpa", gpa_score);
-    labels["percentage"].yourIndex = this.calcIndex(
-      "percentage",
-      percentage_score
-    );
-
     const yearData = school.admission_year;
     const yearOptions = [
       {
@@ -301,5 +324,6 @@ Page({
       schoolName: school["school_name"],
       yearOptions: yearOptions,
     });
+    this.setInitialIndex();
   },
 });

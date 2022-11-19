@@ -7,7 +7,8 @@ import {
   getGrade,
   MAJORS,
   REGIONS,
-  schools,
+  results,
+  unGzip,
 } from "../../utils/util";
 import Message from "../../miniprogram_npm/tdesign-miniprogram/message/index";
 
@@ -47,8 +48,6 @@ Component({
     [`${PICKER_KEY.MAJOR}Value`]: [],
     checkAllValues: [],
     visible: false,
-    // checkResultsDisabled: true,
-    // checkResultIcon: 'close-circle'
   },
 
   methods: {
@@ -97,15 +96,12 @@ Component({
     onFormSubmit() {
       let ready = this.formValidation();
       if (ready) {
-        // this.setData({
-        //     checkResultsDisabled: false,
-        //     checkResultIcon: 'check-circle'
-        // });
         this.setData({
           visible: true,
         });
         this.postRequest();
-        // wx.setStorageSync("data", schools);
+        // wx.setStorageSync("data", results);
+        // console.log(results);
         // setTimeout(() => {
         //   wx.navigateTo({
         //     url: "../results/results",
@@ -142,6 +138,7 @@ Component({
         });
         // wx.setStorageSync('grade', { percentage_score: 85, gpa_score: 3.76 });
         wx.setStorageSync("grade", grade);
+        wx.setStorageSync("regions", destinations);
         return true;
       } else {
         this.showErrorMessage();
@@ -189,7 +186,10 @@ Component({
       });
     },
     onShow: function () {
-      wx.setStorageSync("data", []);
+      //   wx.setStorageSync("data", []);
+      wx.removeStorageSync("data");
+      wx.removeStorageSync("grade");
+      wx.removeStorageSync("regions");
     },
     onVisibleChange(e: any) {
       this.setData({
@@ -199,7 +199,7 @@ Component({
     postRequest() {
       let that = this;
       wx.request({
-        url: "http://120.79.13.214:8080/get_filter_school",
+        url: "https://schoolselection.photographb.cn/get_filter_school",
         data: this.data.formValue,
         header: {
           "Content-Type": "application/json",
@@ -209,14 +209,16 @@ Component({
         dataType: "json",
         success: function (res: any) {
           const response = res.data;
-          const results = response.result.apply_results;
-          wx.setStorageSync("data", results);
-          wx.navigateTo({
-            url: "../results/results",
-          });
-          that.setData({
-            visible: false,
-          });
+          if (response.success) {
+            const results = JSON.parse(unGzip(response.result));
+            app["data"] = results;
+            wx.navigateTo({
+              url: "../results/results",
+            });
+            that.setData({
+              visible: false,
+            });
+          }
         },
         fail: function (err: any) {
           console.log(err);
